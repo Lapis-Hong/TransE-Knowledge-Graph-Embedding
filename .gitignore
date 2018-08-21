@@ -1,0 +1,10 @@
+.idea/
+model/
+summary/
+data/
+
+# Python:
+*.py[cod]
+*.so
+*.egg
+*.egg-info
