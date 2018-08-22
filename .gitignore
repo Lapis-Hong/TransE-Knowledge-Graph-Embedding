@@ -1,7 +1,7 @@
 .idea/
 model/
 summary/
-data/
+
 
 # Python:
 *.py[cod]
