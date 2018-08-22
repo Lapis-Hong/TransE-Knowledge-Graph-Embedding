@@ -9,7 +9,7 @@ import datetime
 import tensorflow as tf
 
 from config import FLAGS
-from kge import TransE
+from kge import *
 from dataset import get_iterator
 from utils import print_args, load_vocab
 
@@ -44,7 +44,7 @@ def train():
                 # show train batch metrics
                 if step % FLAGS.stats_per_steps == 0:
                     time_str = datetime.datetime.now().isoformat()
-                    print('[{}]\tepoch {:2d}\tstep {:3d}\ttrain loss={:.6f}'.format(
+                    print('{}\tepoch {:2d}\tstep {:3d}\ttrain loss={:.6f}'.format(
                         time_str, epoch + 1, step, batch_loss))
 
             if (epoch+1) % FLAGS.save_per_epochs == 0:
@@ -70,6 +70,6 @@ if __name__ == '__main__':
         FLAGS.data_file, entity, entity_table, relation_table, FLAGS.batch_size, shuffle_buffer_size=FLAGS.shuffle_buffer_size)
     if FLAGS.model_type.lower() == "transe":
         model = TransE(iterator, FLAGS)
-    else:
-        pass
+    elif FLAGS.model_type.lower() == "distmult":
+        model = DISTMULT(iterator, FLAGS)
     train()

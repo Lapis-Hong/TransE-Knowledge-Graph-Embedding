@@ -13,7 +13,7 @@ tf.flags.DEFINE_integer("embedding_dim", 200, "embedding dim [200]")
 tf.flags.DEFINE_integer("shuffle_buffer_size", 10000, "Shuffle buffer size")
 
 # model params
-tf.flags.DEFINE_string("model_type", "transE", "modell name, `transE` or `transH`.")
+tf.flags.DEFINE_string("model_type", "transE", "modell name, `transE` or `transH` or`distmult`.")
 tf.flags.DEFINE_string("model_dir", "model", "model path")
 tf.flags.DEFINE_float("margin", 1.0, "loss margin")
 tf.flags.DEFINE_string("score_func", "l1", "score function type")
@@ -24,7 +24,7 @@ tf.flags.DEFINE_string("score_func", "l1", "score function type")
 tf.flags.DEFINE_integer("batch_size", 32, "train batch size [64]")
 tf.flags.DEFINE_integer("max_epoch", 100, "max epoch [100]")
 tf.flags.DEFINE_float("learning_rate", 0.002, "init learning rate [adam: 0.002, sgd: 1.1]")
-tf.flags.DEFINE_string("optimizer", "adam", "optimizer, `adam` | `rmsprop` | `sgd` [adam]")
+tf.flags.DEFINE_string("optimizer", "Adam", "optimizer, `Adam` | `RMSProp` | `SGD` | `Adagrad` or tf.train.Optimizer instance, eg `tf.train.MomentumOptimizer(0.1,0.9)` [Adam]")
 tf.flags.DEFINE_integer("stats_per_steps", 10, "show train info steps [100]")
 
 # auto params, do not need to set
