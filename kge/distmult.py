@@ -16,11 +16,11 @@ class DISTMULT(BaseModel):
     def _score_func(self, h, r, t):
         """f_r(h, t) = h * W_r * t."""
         with tf.name_scope('score'):
-            self.W_r = tf.get_variable("W", [self.k, self.k])
+            self.Wr = tf.get_variable("Wr", [self.k, self.k])
             h = tf.expand_dims(h, axis=1)  # (b, k) -> (b, 1, k)
-            W_r = tf.tile(tf.expand_dims(self.W_r, 0), [self.b, 1, 1])
+            Wr = tf.tile(tf.expand_dims(self.Wr, 0), [self.b, 1, 1])
             t = tf.expand_dims(t, axis=2)
-            score = tf.matmul(tf.matmul(h, W_r), t)
+            score = tf.matmul(tf.matmul(h, Wr), t)
 
         return score
 

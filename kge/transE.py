@@ -5,7 +5,7 @@
 """This module implements transE model.
 References:
     Translating Embeddings for Modeling Multi-relational Data, 2013
-    """
+"""
 import numpy as np
 import tensorflow as tf
 
@@ -15,6 +15,7 @@ from kge.model import BaseModel
 class TransE(BaseModel):
 
     def _score_func(self, h, r, t):
+        """f_r(h,t) = |h+r-t|"""
         with tf.name_scope('score'):
             if self.params.score_func.lower() == 'l1':  # L1 score
                 score = tf.reduce_sum(tf.abs(h + r - t), axis=1)

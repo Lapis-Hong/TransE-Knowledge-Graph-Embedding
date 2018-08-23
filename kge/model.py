@@ -22,13 +22,13 @@ class BaseModel(object):
         """
         self.iterator = iterator
         self.params = params
-        self.k = params.embedding_dim  # embedding dimension
+        self.k = params.entity_embedding_dim  # entity embedding dimension
+        self.d = self.k  # relation embedding dimension, default equal to entity embedding dimension
         self.b = params.batch_size  # batch_size
         self.scope = self.__class__.__name__  # instance class name
-        self.build_graph()
-        self._model_stats()  # print model statistics info
 
     def build_graph(self):
+        """Call this method to build graph."""
         with tf.variable_scope(self.scope, reuse=tf.AUTO_REUSE):
             # embedding
             bound = 6 / math.sqrt(self.k)
@@ -37,16 +37,14 @@ class BaseModel(object):
                     name='entity',
                     shape=[self.params.entity_size, self.k],
                     initializer=tf.random_uniform_initializer(-bound, bound))
+                self.entity_embedding = tf.nn.l2_normalize(self.entity_embedding, axis=1)
                 tf.summary.histogram(name=self.entity_embedding.op.name, values=self.entity_embedding)
                 self.relation_embedding = tf.get_variable(
                     name='relation',
-                    shape=[self.params.relation_size, self.k],
+                    shape=[self.params.relation_size, self.d],
                     initializer=tf.random_uniform_initializer(-bound, bound))
-                tf.summary.histogram(name=self.relation_embedding.op.name, values=self.relation_embedding)
-
-            with tf.name_scope('normalization'):
-                self.entity_embedding = tf.nn.l2_normalize(self.entity_embedding, axis=1)
                 self.relation_embedding = tf.nn.l2_normalize(self.relation_embedding, axis=1)
+                tf.summary.histogram(name=self.relation_embedding.op.name, values=self.relation_embedding)
 
             with tf.name_scope('lookup'):
                 self.h = tf.nn.embedding_lookup(self.entity_embedding, self.iterator.h)
@@ -65,6 +63,7 @@ class BaseModel(object):
             self.global_step = tf.Variable(initial_value=0, trainable=False, name='global_step')
             self.train_op = optimizer.minimize(self.loss, global_step=self.global_step)
             self.merge = tf.summary.merge_all()
+        self._model_stats()  # print model statistics info
 
     @abc.abstractmethod
     def _score_func(self, h, r, t):

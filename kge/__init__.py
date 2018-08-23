@@ -11,6 +11,8 @@ All model classes must inherit class `BaseModel` (defined in model.py)
 # use from model import TransE instead of from model.transE import TransE
 from kge.transE import TransE
 from kge.distmult import DISTMULT
+from kge.transH import TransH
+from kge.transR import TransR
 # from model import *
-__all__ = ["TransE", "DISTMULT"]
+__all__ = ["TransE", "DISTMULT", "TransH", "TransR"]
 

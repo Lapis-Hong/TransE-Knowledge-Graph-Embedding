@@ -9,14 +9,15 @@ import tensorflow as tf
 tf.flags.DEFINE_string("data_file", 'data/FB15k/train.txt', "data dir")
 tf.flags.DEFINE_string("entity_vocab", 'data/FB15k/entity.vocab', "entity vocab file")
 tf.flags.DEFINE_string("relation_vocab", 'data/FB15k/relation.vocab', "relation vocab file")
-tf.flags.DEFINE_integer("embedding_dim", 200, "embedding dim [200]")
+tf.flags.DEFINE_integer("entity_embedding_dim", 200, "entity embedding dim [200]")
+tf.flags.DEFINE_integer("relation_embedding_dim", 50, "relation embedding dim [20]")
 tf.flags.DEFINE_integer("shuffle_buffer_size", 10000, "Shuffle buffer size")
 
 # model params
-tf.flags.DEFINE_string("model_type", "transE", "modell name, `transE` or `transH` or`distmult`.")
+tf.flags.DEFINE_string("model_name", "transE", "model name, `transE`|`transH`|`transR`|`distmult`.")
 tf.flags.DEFINE_string("model_dir", "model", "model path")
 tf.flags.DEFINE_float("margin", 1.0, "loss margin")
-tf.flags.DEFINE_string("score_func", "l1", "score function type")
+tf.flags.DEFINE_string("score_func", "l2", "score function type")
 
 # tf.flags.DEFINE_float("l2_reg", 0.004, "l2 regularization weight [0.004]")
 

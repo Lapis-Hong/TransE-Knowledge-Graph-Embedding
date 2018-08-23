@@ -68,8 +68,14 @@ if __name__ == '__main__':
     mode = tf.estimator.ModeKeys.TRAIN
     iterator = get_iterator(
         FLAGS.data_file, entity, entity_table, relation_table, FLAGS.batch_size, shuffle_buffer_size=FLAGS.shuffle_buffer_size)
-    if FLAGS.model_type.lower() == "transe":
+    if FLAGS.model_name.lower() == "transe":
         model = TransE(iterator, FLAGS)
-    elif FLAGS.model_type.lower() == "distmult":
+    elif FLAGS.model_name.lower() == "distmult":
         model = DISTMULT(iterator, FLAGS)
+    elif FLAGS.model_name.lower() == "transh":
+        model = TransH(iterator, FLAGS)
+    elif FLAGS.model_name.lower() == "transr":
+        model = TransR(iterator, FLAGS)
+
+    model.build_graph()  # build graph
     train()
