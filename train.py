@@ -76,6 +76,8 @@ if __name__ == '__main__':
         model = TransH(iterator, FLAGS)
     elif FLAGS.model_name.lower() == "transr":
         model = TransR(iterator, FLAGS)
+    elif FLAGS.model_name.lower() == "stranse":
+        model = STransE(iterator, FLAGS)
 
     model.build_graph()  # build graph
     train()

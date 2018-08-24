@@ -13,6 +13,8 @@ from kge.transE import TransE
 from kge.distmult import DISTMULT
 from kge.transH import TransH
 from kge.transR import TransR
+from kge.stransE import STransE
+
 # from model import *
-__all__ = ["TransE", "DISTMULT", "TransH", "TransR"]
+__all__ = ["TransE", "DISTMULT", "TransH", "TransR", "STransE"]
 
